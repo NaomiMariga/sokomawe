@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, ForeignKey
-engine = create_engine('postgresql+psycopg2://postgres:Theology@localhost:5432/sokomawe')
-from sqlalchemy.orm import relationship
+engine = create_engine('postgres://mrmxrraryrctfp:462c22bcbb7087f9cfe34768c1117ee63bce61a468dfa794ed268ffd15086845@ec2-54-225-237-84.compute-1.amazonaws.com:5432/dcsm203ro91dic')
 meta = MetaData()
 
 users = Table(
@@ -18,14 +17,20 @@ users = Table(
 items = Table(
    'items', meta, 
    Column('itemid', Integer, primary_key = True), 
-   Column('userid', Integer), 
-   Column('itemimagelink', String), 
+   Column('userid', Integer,ForeignKey('users.userid', ondelete ='CASCADE')), 
    Column('itemdescription', String),
    Column('price', String), 
    Column('shippingfee', String), 
    Column('location', String), 
 )
 
+images = Table(
+'images', meta,
+Column('imageid',Integer, primary_key=True),
+Column('itemid', Integer, ForeignKey('users.userid', ondelete ='CASCADE')),
+Column('itemimagelink', String), 
+
+)
 sessions = Table(
    'sessions', meta, 
    Column('sessionid', Integer, primary_key = True), 

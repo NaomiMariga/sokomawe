@@ -1,7 +1,7 @@
 ### Sokomawe API Endpoints
 |Function |Method |Endpoint|
 |-------------|-------------|------------:|
-|Root||https://sokomawe.herokuapp.com|
+|Root||https://sokopoa.herokuapp.com|
 |Create Account|POST|/registration|
 |Login|POST|/login|
 |Change Password|POST|/changePassword|

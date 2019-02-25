@@ -1,10 +1,10 @@
 ### Sokomawe API Endpoints
-|Function | Endpoint|
+|Function |Method |Endpoint|
 |-------------|------------:|
-|Root|https://sokomawe.herokuapp.com|
-|Create Account|/registration|
-|Login|/login|
-|Change Password|/changePassword|
-|Edit Profile|/userProfileEdit|
-|Logout|/logout|
+|Root||https://sokomawe.herokuapp.com|
+|Create Account|POST|/registration|
+|Login|POST|/login|
+|Change Password|POST|/changePassword|
+|Edit Profile|POST|/userProfileEdit|
+|Logout|POST|/logout|
 

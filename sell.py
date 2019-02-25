@@ -19,5 +19,3 @@ class Sell:
 
         return {"success": True, "message": message}
 
-
-"INSERT INTO users(firstName, surname, idNumber, phoneNumber, email, userName, password) VALUES (Test, Query, 123456789, 987654321, test@query.com, testy, 1234testy)"

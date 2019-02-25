@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, String
 from sqlalchemy.sql import text
 
 class Customer:     
-    engine = create_engine('postgres://mrmxrraryrctfp:462c22bcbb7087f9cfe34768c1117ee63bce61a468dfa794ed268ffd15086845@ec2-54-225-237-84.compute-1.amazonaws.com:5432/dcsm203ro91dic')
+    engine = create_engine('postgres://vdjvyibgfeyiio:2d3c12435e93fe44ec5b7546dc7e494d5a0f7bac28b60bb325333ca1cd3a4e2c@ec2-23-21-165-188.compute-1.amazonaws.com:5432/ds3fhh163hsb1')
     sessions = []
     def ifEmailExists(self, email):
         sql = text("SELECT * FROM users")

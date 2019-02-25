@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, json # importing the flask module and class Flask is mandatory
 from user import Customer
+from flask_cors import CORS
 import os
 app = Flask(__name__) # Flask constructor takes the 
+CORS(app)
 
 customer = Customer() #instantiating the class
 

@@ -2,7 +2,7 @@
 |Function | Endpoint|
 |-------------|------------:|
 |Root||
-|Registration|/registration|
+|Create Account|/registration|
 |Login|/login|
 |Change Password|/changePassword|
 |Edit Profile|/userProfileEdit|

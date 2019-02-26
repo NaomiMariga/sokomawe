@@ -1,12 +1,25 @@
-from flask import Flask, request, jsonify, json # importing the flask module and class Flask is mandatory
+from flask import Flask, Response, request, jsonify, json # importing the flask module and class Flask is mandatory
 from user import Customer
 from flask_cors import CORS
 import os
 app = Flask(__name__) # Flask constructor takes the 
-CORS(app)
+#CORS(app)
+# Covert Dictionary to JSON
+def dict_to_json(dct):
+    return json.dumps(dct, sort_keys=True, indent=4, separators=(',', ': '))
 
 customer = Customer() #instantiating the class
 
+data_sent = None
+@app.before_request
+def before():
+    global data_sent
+    if request.headers.get('Content-Type') == "application/json":
+        data_sent = request.json
+    else:
+        print(request.headers.get('Content_Type'))
+        print(request.data)
+        data_sent = request.form
 
 @app.route('/')
 def hello_world():
@@ -16,25 +29,29 @@ def hello_world():
 def registration():
     try:
         if request.method == 'POST':
-            firstName = request.form.get('fname')
-            surname = request.form.get('surname')
-            idNumber = request.form.get('id')
-            phoneNumber =request.form.get('phone')
-            email = request.form.get('email')
-            userName = request.form.get('username')
-            password = request.form.get('password')
+            firstName = data_sent.get('fname')
+            surname = data_sent.get('surname')
+            idNumber = data_sent.get('id')
+            phoneNumber =data_sent.get('phone')
+            email = data_sent.get('email')
+            userName = data_sent.get('username')
+            password = data_sent.get('password')
             print (firstName)
             result = customer.userRegistration(firstName, surname, idNumber,phoneNumber, email, userName, password)
-            
+            print("This is registration function result"+ str(result))
         else:
             result = {
                 "success": False,
                 "message": "use POST to feed data"
             }
     except Exception as error:
-        result = "An error occured " + str(error)
-    
-    return jsonify(result)
+        result = {
+            "success":False,
+            "message":"An error occured " + str(error)
+            }
+    resp = Response(dict_to_json(result),mimetype="text/json")
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
 
 @app.route('/login', methods= ['POST'])
 def login():
@@ -81,7 +98,7 @@ def changePassword():
             "success": False,
             "message": "use POST for this request"
         }
-    
+
     return jsonify(result)
 
 @app.route('/logout', methods= ['POST'])
@@ -101,5 +118,5 @@ def logout():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT',5000))
-    app.run(host="0.0.0.0",port=port)
+    (app).run(host="0.0.0.0",port=port)
 

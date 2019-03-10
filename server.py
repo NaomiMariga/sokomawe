@@ -50,10 +50,8 @@ def registration():
             "message":"An error occured " + str(error)
             }
     resp = Response(dict_to_json(result), mimetype="text/json")
-    requester = request.headers.get("requester")
 
-    if requester:
-        resp.headers["Access-Control-Allow-Origin"] = requester  # Allow requester to access data
+    resp.headers["Access-Control-Allow-Origin"] = "profnaomi.github.io"  # Allow requester to access data
     return resp
 
 

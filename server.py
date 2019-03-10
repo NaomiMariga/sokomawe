@@ -1,7 +1,7 @@
 from flask import Flask, Response, request, jsonify, json # importing the flask module and class Flask is mandatory
 from user import Customer
 import os
-app = Flask(__name__)  # Flask constructor takes the
+app = Flask(__name__, static_folder='docs')  # Flask constructor takes the
 
 
 # Covert Dictionary to JSON
@@ -23,11 +23,6 @@ def before():
         print(request.headers.get('Content_Type'))
         print(request.data)
         data_sent = request.form
-
-
-@app.route('/')
-def hello_world():
-    return "This an e-commerce API"
 
 
 @app.route('/registration', methods= ['POST'])
@@ -54,8 +49,11 @@ def registration():
             "success":False,
             "message":"An error occured " + str(error)
             }
-    resp = Response(dict_to_json(result),mimetype="text/json")
-    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp = Response(dict_to_json(result), mimetype="text/json")
+    requester = request.headers.get("requester")
+
+    if requester:
+        resp.headers["Access-Control-Allow-Origin"] = requester  # Allow requester to access data
     return resp
 
 
@@ -112,12 +110,12 @@ def changePassword():
     return jsonify(result)
 
 
-@app.route('/logout', methods= ['POST'])
+@app.route('/logout', methods=['POST'])
 def logout():
     if request.method == 'POST':
         userid = request.form.get('userid')
         sessiontoken = request.form.get('token')
-        print (userid)
+        print(userid)
         result = customer.userLogout(userid,sessiontoken)
     else:
         result = {
@@ -128,7 +126,16 @@ def logout():
     return jsonify(result)
 
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT',5000))
-    app.run(host="0.0.0.0",port=port)
+@app.route('/')
+def hello_world():
+    return app.send_static_file("index.html")
 
+
+@app.route('/<path:path>')
+def static_proxy(path):
+    return app.send_static_file(path)
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)

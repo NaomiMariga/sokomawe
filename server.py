@@ -1,16 +1,19 @@
 from flask import Flask, Response, request, jsonify, json # importing the flask module and class Flask is mandatory
 from user import Customer
-from flask_cors import CORS
 import os
-app = Flask(__name__) # Flask constructor takes the 
-#CORS(app)
+app = Flask(__name__)  # Flask constructor takes the
+
+
 # Covert Dictionary to JSON
 def dict_to_json(dct):
     return json.dumps(dct, sort_keys=True, indent=4, separators=(',', ': '))
 
-customer = Customer() #instantiating the class
+
+customer = Customer()  # instantiating the class
 
 data_sent = None
+
+
 @app.before_request
 def before():
     global data_sent
@@ -21,9 +24,11 @@ def before():
         print(request.data)
         data_sent = request.form
 
+
 @app.route('/')
 def hello_world():
-    return "This an ecommerce API"
+    return "This an e-commerce API"
+
 
 @app.route('/registration', methods= ['POST'])
 def registration():
@@ -53,6 +58,7 @@ def registration():
     resp.headers["Access-Control-Allow-Origin"] = "*"
     return resp
 
+
 @app.route('/login', methods= ['POST'])
 def login():
     if request.method == 'POST':
@@ -67,6 +73,8 @@ def login():
         }
     
     return jsonify(result)
+
+
 @app.route('/userProfileEdit', methods= ['POST'])
 def userProfileEdit():
     if request.method == 'POST':
@@ -84,6 +92,8 @@ def userProfileEdit():
         }
     
     return jsonify(result)
+
+
 @app.route('/changePassword', methods= ['POST'])   
 def changePassword():
     if request.method == 'POST':
@@ -101,6 +111,7 @@ def changePassword():
 
     return jsonify(result)
 
+
 @app.route('/logout', methods= ['POST'])
 def logout():
     if request.method == 'POST':
@@ -116,7 +127,8 @@ def logout():
     
     return jsonify(result)
 
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT',5000))
-    (app).run(host="0.0.0.0",port=port)
+    app.run(host="0.0.0.0",port=port)
 

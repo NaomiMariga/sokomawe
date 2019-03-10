@@ -17,7 +17,7 @@ class Customer:
                 dbemail = row['email']
                 All_emails = []
                 All_emails.append(dbemail)
-                print ("this is my test 3 " + str( All_emails))
+                print ("this is my test 3 " + str(All_emails))
             if email in All_emails: 
                 return True
             else:
@@ -105,9 +105,11 @@ class Customer:
 
     def userIsLoggedIn(self, userid, sessiontoken):
         conn = self.engine
-        sql = text("SELECT * FROM sessions")
+        sql = text("SELECT * FROM sessions WHERE userid=%i" % userid)
         result = conn.execute(sql)
         rows = result.fetchall()
+        dbsessionid = None
+        message = "User not found"
         print("This is a test 1 " + str(rows))
         for row in rows:
             print("This is a test 2 " + str(row))
@@ -120,10 +122,10 @@ class Customer:
         try:
             if int(userid) == dbsessionuserid and sessiontoken == dbsessiontoken:
                 message = {
-                    "sessionId":dbsessionid,
-                    "userid":dbsessionuserid,
-                    "token":dbsessiontoken}
-                print("This is a test 4 "+ message)
+                    "sessionId": dbsessionid,
+                    "userid": dbsessionuserid,
+                    "token": dbsessiontoken}
+                print("This is a test 4 %s" % str(message))
                 return True, message
             else:
                 return False, message

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SokoPoa Online stores</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="material/css/style.css" rel="stylesheet">
+</head>
+
+<body onload="reload()">
+
+
+    <!-- Start your project here-->
+    <div style="max-height: 100vh">
+        <div class="header">
+            <center style="margin-top :1px ">
+                <h1 class="font-snow">
+                    <i class="fa fa-building"></i>
+                </h1>
+                <h5 class="font-snow golden-ratio-min">
+                    </h>SokoPoa Inc</h5>
+
+            </center>
+        </div>
+        <div class="row">
+            <div class="col-3"style="max-height:100%">
+                <div class="side flex-column" id="site_news">
+                    <center class="font-purple golden-ratio-min">Site News</center>
+                    <ul>
+                        <li>
+                            <a href="#">News link 1</a>
+                        </li>
+                        <hr>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-9">
+
+                <div class="flex-column flex-center" id="home_page">
+                    <img id="image-slides" class="animated fadeIn" src="material/images/1.png">
+                    <h1 class="animated fadeIn mb-2 font-purple golden-ratio-max">Welcome to SokoPoa online Stores</h1>
+
+                    <h5 class="animated fadeIn mb-1 font-purple golden-ratio-min">Thank you for choosing to trade with
+                        us. We're glad you're with us.</h5>
+                    <div class="row">
+                        <div class="element d-none" id="element"></div>
+                        <button class="btn btn-lg button-purple" id="button_register" data-toggle="collapse"
+                            data-target="#form_register">
+                            <span class="font-snow">Sign UP</span>
+                        </button>
+                        <button class="btn btn-lg button-purple" id="button-login" data-toggle="collapse" data-target="#form_login">
+                            <span class="font-snow">Log In</span>
+                        </button>
+
+                    </div>
+
+                    <div class="md-form collapse" id="form_register">
+
+                        <form class="form-group " action="javascript:registration();" method="POST">
+                            <center>
+                                <span class="font-purple golden-ratio-min">Create Account</span>
+                            </center>
+                            <div class="row">
+                                <div class="col-3">
+                                    <input type="text" placeholder="" id="fname" class="form-control font-purple"
+                                        required>
+                                    <span class="small font-purple">First Name</span>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" placeholder="" id="surname" class="form-control font-purple"
+                                        required>
+                                    <span class="small font-purple">Surname</span>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" placeholder="" id="id" class="form-control font-purple"
+                                        required>
+                                    <span class="small font-purple">ID Number</span>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" placeholder="" id="phone"class="form-control font-purple" required>
+                                    <span class="small font-purple">Phone number</span>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="email" placeholder="" id="email" class="form-control font-purple" required>
+                                    <span class="small font-purple">Email</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" placeholder="" id="username" class="form-control font-purple" required>
+                                    <span class="small font-purple"> Username: contains numbers and letters</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="password" placeholder="" id="password" class="form-control font-purple"
+                                        required>
+                                    <span class="small font-purple">Password: Must contain
+                                        uppercase, lowercase and numbers</span>
+                                </div>
+                            </div>
+                            <center>
+                                <button type="submit" class="btn btn-md button-purple" onclick="registration">Register</button>
+                            </center>
+                        </form>
+                    </div>
+                    <div class="md-form collapse" id="form_login">
+                        <form class="form-group " action="javascript:login()" method="POST">
+                            <center>
+                                <span class="font-purple golden-ratio-min">Account Login</span>
+                            </center>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="email" placeholder="" class="form-control" required>
+                                    <span class=" small font-purple"> Email</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="password" placeholder="" class="form-control" required>
+                                    <span class="small font-purple"> Password</span>
+                                </div>
+                            </div>
+
+                            <center>
+
+                                <button type="submit" class="btn btn-md button-purple" onclick="login">Login</button>
+
+
+                                <button class=" btn btn-md button-purple" data-toggle="collapse" data-target="#form_reset">Forgot
+                                    Password?</span>
+
+                            </center>
+
+
+
+                        </form>
+                    </div>
+                    <div class="md-form collapse" id="form_reset">
+                        <form class="form-group">
+                            <center>
+                                <span class="font-purple golden-ratio-min">Reset Password</span>
+                            </center>
+                            <input type="email" class="form-control" placeholder="" required>
+                            <span class=" small font-purple">Email </span>
+                            <center>
+                                <button type="submit" class="btn btn-md button-purple">Send me a Password</button>
+                            </center>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="main_page" class="d-none" style="height: 80vh;">
+
+
+                <div class=" flex-center">
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="footer" style="margin-left: 2px">
+            <center class="font-snow">
+                <i class="fa fa-copyright">2018</i>
+                <span class="font-snow" data-toggle="collapse" data-target="#admin_login">Admin Login</span>
+                <div class="md-form collapse" id="admin_login">
+                    <form class="form-group" method="POST">
+                        <center>
+                            <span class="font-white golden-ratio-min">Adminstrator Login</span>
+                        </center>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-3">
+                                <input type="email" placeholder="" class="form-control font-snow" required>
+                                <span class=" small font-snow"> Email</span>
+                            </div>
+                            <div class="col-3">
+                                <input type="password" placeholder="" class="form-control" required>
+                                <span class=" small font-snow"> Password</span>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+
+                        <center>
+                            <button type="submit" class="btn btn-md button-purple">Login</button>
+                        </center>
+
+                    </form>
+
+                </div>
+            </center>
+        </div>
+    </div>
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="material/js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="material/js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="material/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="material/js/mdb.min.js"></script>
+    <script type="text/javascript" src="material/js/action.js"></script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@ from user import Customer
 from flask_cors import CORS
 import os
 app = Flask(__name__) # Flask constructor takes the 
-#CORS(app)
+#CORS(app) 
 # Covert Dictionary to JSON
 def dict_to_json(dct):
     return json.dumps(dct, sort_keys=True, indent=4, separators=(',', ': '))
@@ -21,6 +21,12 @@ def before():
         print(request.data)
         data_sent = request.form
 
+@app.after_request
+def after(response):
+    header = response.headers
+    header['Access-Control-Allow-Origin'] = '*'
+    return response
+
 @app.route('/')
 def hello_world():
     return "This an ecommerce API"
@@ -37,21 +43,19 @@ def registration():
             userName = data_sent.get('username')
             password = data_sent.get('password')
             print (firstName)
-            result = customer.userRegistration(firstName, surname, idNumber,phoneNumber, email, userName, password)
-            print("This is registration function result"+ str(result))
+            response = customer.userRegistration(firstName, surname, idNumber,phoneNumber, email, userName, password)
+            print("This is registration function result"+ str(response))
         else:
-            result = {
+            response = {
                 "success": False,
                 "message": "use POST to feed data"
             }
     except Exception as error:
-        result = {
+        response = {
             "success":False,
             "message":"An error occured " + str(error)
             }
-    resp = Response(dict_to_json(result),mimetype="text/json")
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    return resp
+    return Response(dict_to_json(response),mimetype="text/json")
 
 @app.route('/login', methods= ['POST'])
 def login():
@@ -59,14 +63,16 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         print (email)
-        result = customer.userLogin(email,password)
+        response = customer.userLogin(email,password)
+        print("This is login function result"+ str(response))
+
     else:
-        result = {
+        response = {
             "success": False,
             "message": "use POST for this request"
         }
     
-    return jsonify(result)
+    return jsonify(response)
 @app.route('/userProfileEdit', methods= ['POST'])
 def userProfileEdit():
     if request.method == 'POST':
@@ -107,16 +113,16 @@ def logout():
         userid = request.form.get('userid')
         sessiontoken = request.form.get('token')
         print (userid)
-        result = customer.userLogout(userid,sessiontoken)
+        response = customer.userLogout(userid,sessiontoken)
     else:
-        result = {
+        response = {
             "success": False,
             "message": "use POST for this request"
         }
     
-    return jsonify(result)
+    return jsonify(response)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT',5000))
-    (app).run(host="0.0.0.0",port=port)
+    app.run(host="0.0.0.0",port=port)
 

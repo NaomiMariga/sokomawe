@@ -26,6 +26,7 @@ class Customer:
             "An error occured " + str(error)
 
     def userRegistration(self,firstName, surname, idNumber,phoneNumber, email, userName, password):
+        success= False
         if firstName.strip() is not "":
             if surname.strip() is not "":
                 if idNumber.strip() is not "":
@@ -40,7 +41,8 @@ class Customer:
                                             sql = sql.bindparams(firstName=firstName, surname=surname, idNumber=idNumber, phoneNumber=phoneNumber, email=email, userName=userName, password=password)
                                             conn.execute(sql)
                                             conn.close()
-                                            message = {"success": True,
+                                            success= True
+                                            message = {
                                             "message": "user created successfully",
                                             "user": { "firstName": firstName, "email": email}
                                             }
@@ -63,9 +65,10 @@ class Customer:
         else:
             message= "please provide your given name"
         
-        return {"message":message}
+        return {"success":success,"message":message}
     
     def userLogin(self, email, password):
+        success = False
         if email:
             if password:
                 print( "this is test 1" + email)
@@ -83,11 +86,11 @@ class Customer:
                     dbuserid = row['userid']   
                     print ("This is test 3" + dbuser)
                     if email == dbemail and password == dbpassword:    
-                        message = {
-                            "success":True,
+                        success = True
+                        message = {    
                             "message":"Welcome "+ dbuser + ", Your login was sucessful",
-                        "userid":dbuserid,
-                        "token":"1234testtoken"}
+                            "userid":dbuserid,
+                            "token":"1234testtoken"}
                         sql = text("INSERT INTO sessions (userid, sessiontoken) VALUES (:userid, :token)")
                         sql = sql.bindparams(userid=dbuserid, token=message["token"])
                         conn.execute (sql)
@@ -101,7 +104,7 @@ class Customer:
         else:
             message = "please provide email"
 
-        return {"message": message}
+        return {"success":success,"message": message}
 
     def userIsLoggedIn(self, userid, sessiontoken):
         conn = self.engine
